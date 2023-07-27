@@ -3,7 +3,7 @@ Un bot que permite introducir de manera automática un comando para poder entrar
 
 ## Dependencias
 
-Tendremos que instalar Node.js para ejecutar el bot, no es necesario instalar las herramientas adicionales. Descarga Node.js aquí (recomiendo la versión estable).
+Tendremos que instalar Node.js para ejecutar el bot, no es necesario instalar las herramientas adicionales. Descarga Node.js [aquí](https://nodejs.org/es) (recomiendo la versión estable).
 
 El bot incluye los siguientes módulos:
 
