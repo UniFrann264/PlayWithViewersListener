@@ -1,0 +1,23 @@
+{
+    "misc": {
+        "language": "es",
+        "sound": true
+    },
+    "credentials": {
+        "username": "",
+        "usernameDisplay": "",
+        "password": ""
+    },
+    "channeldata": {
+        "name": "",
+        "command": "!join",
+        "open": "!open",
+        "close": "!close",
+        "widgetUrl": "",
+        "teamSize": 3
+    },
+    "messages": {
+        "team0": true,
+        "team1": true
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "description": "",
+  "dependencies": {
+    "play-sound": "^1.1.5",
+    "puppeteer": "^20.5.0",
+    "tmi.js": "^1.8.5"
+  }
+}

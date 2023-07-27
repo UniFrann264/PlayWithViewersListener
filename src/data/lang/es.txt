@@ -1,0 +1,18 @@
+# Mensaje de PlayWithViewers
+La cola está cerrada en este momento.
+# Mensaje cuando tu equipo esta en la posicion 1
+Estoy listo para esta aventura!
+# Mensaje cuando tu equipo esta en la posicion 1 (Consola)
+El usuario juega la próxima partida.
+# Mensaje cuando su equipo esta en la posición 2
+Que emoción! Estoy a punto de jugar con el streamer!
+# Mensaje cuando su equipo esta en la posición 2 (Consola)
+El usuario esta a dos partidas de jugar.
+# El usuario se ha eliminado de la lista (Consola)
+El usuario ha sido eliminado de la lista, renviando comando.
+# Cola abierta, pero el usuario no aparece (Consola)
+Cola abierta, el usuario no aparece en la lista, enviando comando.
+# Cola cerrada
+Se ha cerrado la cola chicos, muchas gracias por su participación!
+# Cola cerrada (Consola)
+La cola ha sido cerrada.
