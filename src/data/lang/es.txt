@@ -7,7 +7,7 @@ El usuario juega la próxima partida.
 # Mensaje cuando su equipo esta en la posición 2
 Que emoción! Estoy a punto de jugar con el streamer!
 # Mensaje cuando su equipo esta en la posición 2 (Consola)
-El usuario esta a dos partidas de jugar.
+El usuario está a dos partidas de jugar.
 # El usuario se ha eliminado de la lista (Consola)
 El usuario ha sido eliminado de la lista, renviando comando.
 # Cola abierta, pero el usuario no aparece (Consola)

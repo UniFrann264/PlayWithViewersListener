@@ -1,0 +1,18 @@
+# Message of the PlayWithViewers
+Queue is closed right now.
+# Message when your team is in position 1
+I am ready for this adventure!
+# Message when your team is in position 1 (Console)
+The user plays the next game.
+# Message when your team is in position 2
+What a thrill! I'm about to play with the streamer!
+# Message when your team is in position 1 (Console)
+The user is two games away from playing.
+# The user has been removed from the list (Console)
+The user has been removed from the list, sending command.
+# Queue open, but the user does not appear (Console)
+Queue open, user not listed, sending command.
+# Queue closed
+The queue has closed guys, thank you very much for your participation!
+# Queue closed (Console)
+The queue has been closed.
