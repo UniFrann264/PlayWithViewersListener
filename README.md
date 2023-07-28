@@ -1,6 +1,8 @@
 # PlayWithViewersListener
 A bot that allows you to automatically enter a command to be able to enter the PlayWithViewersBot bot queue, this bot has the ability to know when the room opens, when the player is removed from the list to resend the command and when the room is closed room to avoid sending commands.
 
+To run the bot, just open the bat: `bot.bat`.
+
 ## Dependencies
 
 We will need to install Node.js to run the bot, there is no need to install the additional tools. Download Node.js [here](https://nodejs.org/en) (I recommend the stable version).
@@ -12,6 +14,14 @@ The bot includes the following modules:
 • Puppeteer: To observe the behavior of the widget.
 
 • Play-sound: Emits a sound to notify the user that there is 1 game left to enter.
+
+**WARNING**: In case the modules do not work, enter the following commands inside the PlayWithViewers folder:
+
+`npm install tmi.js`
+
+`npm install play-sound`
+
+`npm install puppeteer`
 
 ## Setting
 Before starting the bot we need to configure some parameters so that it works correctly with your Twitch user, remember that all the information must be in lowercase. We must access the following directory src/data.

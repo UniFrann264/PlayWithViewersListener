@@ -1,6 +1,8 @@
 # PlayWithViewersListener
 Un bot que permite introducir de manera automática un comando para poder entrar a la cola del bot PlayWithViewersBot, este bot tiene la capacidad de saber cuando la sala se abre, cuándo el jugador es removido de la lista para reenviar el comando y cuándo se cierra la sala para evitar mandar comandos.
 
+Para ejecutar el bot basta con abrir el bat: `bot.bat`.
+
 ## Dependencias
 
 Tendremos que instalar Node.js para ejecutar el bot, no es necesario instalar las herramientas adicionales. Descarga Node.js [aquí](https://nodejs.org/es) (recomiendo la versión estable).
@@ -12,6 +14,14 @@ El bot incluye los siguientes módulos:
 •	Puppeteer: Para observar el comportamiento del widget.
 
 •	Play-sound: Emite un sonido para avisarle al usuario de que falta 1 partida para que ingrese.
+
+**ATENCIÓN**: En caso de que no funcionen los módulos introducir los siguientes comandos dentro de la carpeta PlayWithViewers:
+
+`npm install tmi.js`
+
+`npm install play-sound`
+
+`npm install puppeteer`
 
 ## Configuración
 Antes de iniciar el bot precisamos configurar algunos parámetros para que funcione correctamente con su usuario de Twitch, recuerde que toda la información debe estar en minúscula. Debemos acceder al siguiente directorio src/data.
