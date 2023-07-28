@@ -1,7 +1,7 @@
 # PlayWithViewersListener
 Un bot que permite introducir de manera automática un comando para poder entrar a la cola del bot PlayWithViewersBot, este bot tiene la capacidad de saber cuando la sala se abre, cuándo el jugador es removido de la lista para reenviar el comando y cuándo se cierra la sala para evitar mandar comandos.
 
-Para ejecutar el bot basta con abrir el bat: `bot.bat`
+Para ejecutar el bot basta con abrir el bat: `bot.bat`.
 
 ## Dependencias
 
