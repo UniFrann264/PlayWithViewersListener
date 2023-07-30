@@ -108,7 +108,7 @@ async function runPuppeteer() {
         const listContent = await frame2.evaluate(() => {
             const listItems = Array.from(document.querySelectorAll('.PlayersList__list___1hUBH li')).map(item => {
                 const rank = item.querySelector('.Player__rank___QAMIY').textContent.trim();
-                const username = item.querySelector('.Player__username___1k_68 span').textContent.trim();
+                const username = item.querySelector('.Player__username___1k_68 span').textContent.trim().toLowerCase();
                 return { rank, username };
             });
             return listItems;
