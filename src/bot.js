@@ -228,13 +228,6 @@ async function runPuppeteer() {
 }
 
 //Functions to have code readability
-function randomEmote() {
-
-    let num = Math.floor(Math.random() * emotes.length);
-    return emotes[num];
-
-}
-
 function printMessage(message) {
 
     var outline = "=";
@@ -259,8 +252,6 @@ function nextToPlay() {
 
     if (team1Message) {
 
-        console.log("Este bloque anda");
-
         if (countNext == 0) {
 
             client.say(channel, lang[3]);
@@ -280,7 +271,7 @@ function resendCommand() {
     countNext = 0;
     stateOfGame = -1;
     client.say(channel, command);
-    printMessage(lang[4])
+    printMessage(lang[5])
 
 }
 
@@ -291,7 +282,7 @@ function partyOpened() {
     if (index === -1) {
 
         client.say(channel, command);
-        printMessage(lang[5])
+        printMessage(lang[6])
 
     }
 
@@ -299,8 +290,8 @@ function partyOpened() {
 
 function partyClosed() {
 
-    client.say(channel, lang[6]);
-    printMessage(lang[7])
+    client.say(channel, lang[7]);
+    printMessage(lang[8])
 
 }
 
@@ -344,7 +335,7 @@ try {
 
 } catch (error) {
 
-    console.error('Error to read files: ', error);
+    console.error(lang[9], error);
 
 }
 
