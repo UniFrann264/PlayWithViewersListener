@@ -16,3 +16,5 @@ Queue open, user not listed, sending command.
 The queue has closed guys, thank you very much for your participation!
 # Queue closed (Console)
 The queue has been closed.
+# Error reading configuration file
+An error occurred while reading the config.json files

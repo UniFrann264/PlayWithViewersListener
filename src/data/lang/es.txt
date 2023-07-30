@@ -16,3 +16,5 @@ Cola abierta, el usuario no aparece en la lista, enviando comando.
 Se ha cerrado la cola chicos, muchas gracias por su participación!
 # Cola cerrada (Consola)
 La cola ha sido cerrada.
+# Error para leer el archivo de configuración
+Ha ocurrido un error al leer los archivos config.json
