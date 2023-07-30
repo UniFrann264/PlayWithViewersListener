@@ -2,7 +2,7 @@
 // UNIFRANN264
 // 2023
 
-//Requeriments
+//Requirements
 const tmi = require('tmi.js');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
@@ -120,7 +120,7 @@ async function runPuppeteer() {
 
             if (isOpen && arrayUsers != tempArrayUsers) {
 
-                const index = arrayUsers.findIndex(user => user.username === "UniFrann264");
+                const index = arrayUsers.findIndex(user => user.username == usernameDisplay);
                 var teamPos = 0;
 
                 //Check the user position in the list
