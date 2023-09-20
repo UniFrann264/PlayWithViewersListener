@@ -1,7 +1,8 @@
 {
     "misc": {
-        "language": "es",
-        "sound": true
+        "language": "en",
+        "sound": true,
+        "sendCommand": false
     },
     "credentials": {
         "username": "",
@@ -16,7 +17,15 @@
         "widgetUrl": "",
         "teamSize": 3
     },
+    "onOpenQueueOptions": {
+        "enabled": false,
+        "joinAfterCountCommands": 3
+    },
+    "onExitQueueOptions": {
+        "closeBot": false
+    },
     "messages": {
+        "queue": true,
         "team0": true,
         "team1": true
     }
