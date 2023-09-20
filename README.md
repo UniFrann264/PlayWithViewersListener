@@ -34,6 +34,8 @@ We will enter the config.json file
 
 `sound`: When we are about to play the bot notifies us by issuing an alarm to notify us (it opens the Windows music player).
 
+`sendCommand`: Allows the bot to send commands to the chat.
+
 ### Credentials:
 
 `username`: We will have to put our Twitch username in lowercase, the username must be the one used to log in.
@@ -53,11 +55,23 @@ To obtain this key, we will have to enter the following [link](https://twitchapp
 
 `close`: Command used by moderators to close the room.
 
-`widgetUrl`: Url of the widget, to obtain it we must go to the lower right part of the widget, we will see a square button with an arrow coming out, when clicked it will open a pop-up window, there we will copy the url and put it in this field .
+`widgetUrl`: Url of the widget, to obtain it we must go to the lower right part of the widget, we will see a square button with an arrow coming out, when clicked it will open a pop-up window, there we will copy the url and put it in this field.
 
 `teamSize`: Team size.
 
+### onOpenQueueOptions:
+
+`enabled`: Enable options when the queue is open.
+
+`joinAfterCountCommands`: Allows that when the room is opened the bot will only send the command after a certain number of users have sent the command.
+
+### onExitQueueOptions:
+
+`closeBot`: When the user is removed from the queue, the bot is closed.
+
 ### messages:
+
+`queue`: Message that will be sent to the channel when the queue has been closed.
 
 `team0`: Message that will be sent to the channel when the team is about to play, this field is completed only with `true` or `false`.
 
