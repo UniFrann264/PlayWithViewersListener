@@ -34,6 +34,8 @@ Entraremos al archivo config.json
 
 `sound`: Cuando estemos por jugar el bot nos avisa emitiendo una alarma para avisarnos (abre el reproductor de música de Windows).
 
+`sendCommand`: Permite que el bot pueda enviar comandos al chat.
+
 ### Credentials:
 
 `username`: Tendremos que poner nuestro nombre de usuario de Twitch en minúsculas, el nombre de usuario debe ser el que se utiliza para iniciar sesión.
@@ -57,7 +59,21 @@ Para obtener dicha clave, tendremos que entrar al siguiente [link](https://twitc
 
 `teamSize`: Tamaño del equipo.
 
+### onOpenQueueOptions:
+
+`enabled`: Habilita las opciones cuando la cola sea abierta.
+
+`joinAfterCountCommands`: Permite que cuando la sala sea abierta el bot solo enviará el comando después de que una cierta canditad de usuarios hayan enviado el comando.
+
+### onExitQueueOptions:
+
+`enabled`: Habilita las opciones cuando el usuario salga de la cola.
+
+`closeBot`: Cuando el usuario sea eliminado de la cola, el bot se cierra.
+
 ### messages:
+
+`queue`: Mensaje que se enviará al canal cuando la cola haya sido cerrada.
 
 `team0`: Mensaje que se enviará al canal cuando el equipo esta por jugar, este campo se completa solo con `true` o `false`.
 
