@@ -87,10 +87,10 @@ async function runPuppeteer() {
                         partyOpened();
                         await delay(5000);
                     }
-                } else {
-                    if (sendCommand) {
-                        partyClosed();
-                    }
+                }
+                else
+                {
+                    partyClosed();
                 }
                 tempIsOpen = isOpen;
             }
@@ -109,41 +109,54 @@ async function runPuppeteer() {
         arrayUsers = listContent;
 
         if (!ignoreLoop) {
-            if (isOpen && arrayUsers != tempArrayUsers) {
+            if (isOpen && arrayUsers != tempArrayUsers) 
+            {
                 const index = arrayUsers.findIndex(user => user.username == usernameDisplay);
                 var teamPos = 0;
                 //Check the user position in the list
-                if (index == -1) {
-                    if(isJoined && closeBot) {
+                if (index == -1)
+                {
+                    if(isJoined && closeBot) 
+                    {
                         process.exit(0);
                     }
-                    else {
-                        if (sendCommand) {
-                            resendCommand();
-                            await delay(1000);
-                        }
+                    else if(sendCommand && !openQueue) 
+                    {
+                        resendCommand();
+                        await delay(1000);
                     } 
-                } else {
+                } 
+                else 
+                {
                     isJoined = true;
                     var tempTeamSize = teamSize;
                     for (var i = 0; i <= index; i++) {
-                        if (tempTeamSize == 0) {
+                        if (tempTeamSize == 0) 
+                        {
                             tempTeamSize = teamSize - 1;
                             teamPos++;
-                        } else {
+                        }
+                        else
+                        {
                             tempTeamSize--;
                         }
                     }
                     stateOfGame = teamPos;
                 }
-                if (stateOfGame != tempStateOfGame) {
-                    if (stateOfGame == 0) {
+
+                if (stateOfGame != tempStateOfGame)
+                {
+                    if (stateOfGame == 0)
+                    {
                         //Ignore the code if the bot started when you are about to play the game.
-                        if (!firstTime) {
-                            if (team0Message) {
+                        if (!firstTime)
+                        {
+                            if (team0Message)
+                            {
                                 client.say(channel, lang[1]);
                             }
-                            if (soundSwitch) {
+                            if (soundSwitch)
+                            {
                                 player.play('src/data/notification.wav', function (err) {
                                     if (err) throw err
                                 });
@@ -151,16 +164,12 @@ async function runPuppeteer() {
                             printMessage(lang[2]);
                             countNext = 0;
                         }
-                        else {
-                            firstTime = false;
-                        }
                     }
                     else if (stateOfGame == 1)
                     {
-                        if (tempStateOfGame != 0) {
-                            nextToPlay();
-                        }
+                        nextToPlay();
                     }
+                    firstTime = false;
                     tempStateOfGame = stateOfGame;
                 }
                 tempArrayUsers = arrayUsers;
@@ -203,13 +212,13 @@ function printMessage(message) {
 }
 
 function nextToPlay() {
-    if (team1Message) {
+    if (tempStateOfGame != 0 && team1Message) {
         if (countNext == 0) {
             client.say(channel, lang[3]);
         }
-        countNext++;
-        printMessage(lang[4])
+        countNext++;  
     }
+    printMessage(lang[4])
 }
 
 function resendCommand() {
@@ -313,29 +322,38 @@ runPuppeteer();
 client.on('chat', (target, ctx, message, self) => {
     var messageFinal = message.toLowerCase();
 
-    if (self) return;
+    if (self && messageFinal.includes(command))
+    {
+        openQueue = false;
+    }
 
-    if(sendCommand) {
-        if (ctx.mod && messageFinal == open) {
-            ignoreLoop = true;
-            if(!openQueue) {
-                partyOpened();
-            }    
-        }
-
-        if(isOpen && openQueue && messageFinal.includes(command)) {
-            countJoin--;
-            if(countJoin <= 0) {
-                partyOpened();
-            }
+    if(isOpen && openQueue && sendCommand && messageFinal.includes(command))
+    {
+        countJoin--;
+        if(countJoin <= 0)
+        {
+            openQueue = false;
+            partyOpened();
         }
     }
 
-    if (ctx.mod && messageFinal == close) {
+    if (ctx.mod && messageFinal.includes(open))
+    {
+        isOpen = true;
+        if(sendCommand)
+        {
+            ignoreLoop = true;
+            if(!openQueue)
+            {
+                partyOpened();
+            }  
+        }
+    }
+
+    if (ctx.mod && messageFinal.includes(close))
+    {
         ignoreLoop = true;
         isOpen = false;
-        if (sendCommand) {
-            partyClosed();
-        }
+        partyClosed();
     }
 })
