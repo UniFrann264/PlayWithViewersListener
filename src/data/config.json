@@ -2,7 +2,8 @@
     "misc": {
         "language": "en",
         "sound": true,
-        "sendCommand": false
+        "sendCommand": false,
+        "listenPuppeteer": false
     },
     "credentials": {
         "username": "",
@@ -11,7 +12,7 @@
     },
     "channeldata": {
         "name": "",
-        "command": "!join",
+        "command": "!join, !jugar",
         "open": "!open",
         "close": "!close",
         "widgetUrl": "",

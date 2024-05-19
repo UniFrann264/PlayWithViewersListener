@@ -3,21 +3,23 @@
 // 2023
 
 //Requirements
-const tmi = require('tmi.js');
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const { send } = require('process');
+const tmi = require("tmi.js");
+const puppeteer = require("puppeteer");
+const fs = require("fs");
 
-//Load language bot
-const lang = [];
-const contentLang = fs.readFileSync("src/data/lang/es.txt", 'utf-8');
-const splitContent = contentLang.split('\n');
+//Load text files
+var splitContent;
+
+//Load list of exclusion usernames
+const excludeList = [];
+const contentExclude = fs.readFileSync("src/data/exclude.txt", "utf-8");
+splitContent = contentExclude.split("\n");
 
 splitContent.forEach((line) => {
-    if (line.trim() != '' && !line.includes('#')) {
-        lang.push(line.trim());
+    if (line.trim() != "") {
+        excludeList.push(line.trim());
     }
-}); //Finish on load language
+}); //Finish on load exclude list
 
 //Set client data
 //Integer variables
@@ -28,6 +30,7 @@ var countNext = 0; //Count when mods send !list command more than once
 var countJoin; //Join in the queue after counting join commands from other users
 
 //String variables
+var language; //Language of the bot
 var username, usernameDisplay, password; //User twitch credentials
 var channel, channelArray; //Channel to send commands
 var command; //Command to join the queue
@@ -37,6 +40,7 @@ var queueMessage; //Message of queue is closed
 var team0Message, team1Message; //Message events on queue position updated
 
 //Boolean variables
+var listenPuppeteer; //If enabled the bot listen Puppeteer
 var isOpen = false; //Queue list status
 var tempIsOpen = false; //Auxiliar variable for "isOpen"
 var firstTime = true; //First loop check is ignored or altered
@@ -50,6 +54,9 @@ var closeBot; //When the user is removed of the queue close the bot
 //Array variables
 var arrayUsers; //List with users from widget
 var tempArrayUsers; //Auxiliar variable list for "arrayUsers"
+
+//Constant variables
+const lang = [];
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -70,12 +77,13 @@ async function runPuppeteer() {
             await delay(5000);
         }
 
-        //Check if the list is closed
+        //Get info close list message
         const isListClosed = await frame2.evaluate((lang) => {
             const messageElement = document.querySelector('div.Header__message___2553O');
             return messageElement && messageElement.textContent.includes(lang[0]);
         }, lang);
 
+        //Check if the list is closed
         if (firstTime && !isListClosed) {
             isOpen = true;
             tempIsOpen = true;
@@ -105,7 +113,6 @@ async function runPuppeteer() {
             });
             return listItems;
         });
-
         arrayUsers = listContent;
 
         if (!ignoreLoop) {
@@ -151,18 +158,7 @@ async function runPuppeteer() {
                         //Ignore the code if the bot started when you are about to play the game.
                         if (!firstTime)
                         {
-                            if (team0Message)
-                            {
-                                client.say(channel, lang[1]);
-                            }
-                            if (soundSwitch)
-                            {
-                                player.play('src/data/notification.wav', function (err) {
-                                    if (err) throw err
-                                });
-                            }
-                            printMessage(lang[2]);
-                            countNext = 0;
+                            play();
                         }
                     }
                     else if (stateOfGame == 1)
@@ -211,6 +207,7 @@ function printMessage(message) {
     console.log("")
 }
 
+//Message when the team is live
 function nextToPlay() {
     if (tempStateOfGame != 0 && team1Message) {
         if (countNext == 0) {
@@ -221,19 +218,43 @@ function nextToPlay() {
     printMessage(lang[4])
 }
 
+function play()
+{
+    if (team0Message)
+        {
+            client.say(channel, lang[1]);
+        }
+        if (soundSwitch)
+        {
+            player.play('src/data/notification.wav', function (err) {
+                if (err) throw err
+            });
+        }
+    printMessage(lang[2]);
+    countNext = 0;
+}
+
+//When moderators deletes the user, resend the command
 function resendCommand() {
-    //When moderators deletes the user, resend the command
     countNext = 0;
     stateOfGame = -1;
-    client.say(channel, command);
+    client.say(channel, command[0]);
     printMessage(lang[5])
 }
 
 function partyOpened() {
-    const index = arrayUsers.findIndex(user => user.username == usernameDisplay);
-    if (index === -1) {
-        client.say(channel, command);
-        printMessage(lang[6])
+    if(listenPuppeteer)
+    {
+        const index = arrayUsers.findIndex(user => user.username == usernameDisplay);
+        if (index == -1) {
+            client.say(channel, command[0]);
+            printMessage(lang[6])
+        }
+    }
+    else
+    {
+        client.say(channel, command[0]);
+        printMessage(lang[7])
     }
 }
 
@@ -258,8 +279,10 @@ try {
     const config = JSON.parse(configData);
 
     //Misc
+    language = config.misc.language;
     soundSwitch = config.misc.sound;
     sendCommand = config.misc.sendCommand;
+    listenPuppeteer = config.misc.listenPuppeteer;
 
     //Credentials
     username = config.credentials.username;
@@ -269,7 +292,10 @@ try {
     //Channel data
     channel = config.channeldata.name;
     channelArray = [channel];
-    command = config.channeldata.command;
+    var commandTemp = config.channeldata.command;
+    var command = commandTemp.split(',').map(function(item) {
+        return item.trim();
+    });
     open = config.channeldata.open;
     close = config.channeldata.close;
     url = config.channeldata.widgetUrl;
@@ -287,6 +313,15 @@ try {
     
     team0Message = config.messages.team0; //It's the player's turn
     team1Message = config.messages.team1; //Player is next to play
+
+    //Load language bot
+    const contentLang = fs.readFileSync("src/data/lang/" + language + ".txt", "utf-8");
+    splitContent = contentLang.split("\n");
+    splitContent.forEach((line) => {
+        if (line.trim() != "" && !line.includes("#")) {
+            lang.push(line.trim());
+        }
+    }); //Finish on load language
 
     if (soundSwitch) {
         var player = require('play-sound')(opts = {});
@@ -316,7 +351,9 @@ const client = new tmi.client(options);
 client.connect().catch(console.error);
 
 //Initialize chrome for read the widget PlayWithViewers
-runPuppeteer();
+if(listenPuppeteer) {
+    runPuppeteer();
+}
 
 //Message listener
 client.on('chat', (target, ctx, message, self) => {
@@ -327,7 +364,8 @@ client.on('chat', (target, ctx, message, self) => {
         openQueue = false;
     }
 
-    if(isOpen && openQueue && sendCommand && messageFinal.includes(command))
+    //When onOpenQueueOptions is enabled
+    if(!self && isOpen && openQueue && sendCommand && !excludeList.includes(ctx.username) && command.includes(messageFinal))
     {
         countJoin--;
         if(countJoin <= 0)
@@ -337,7 +375,8 @@ client.on('chat', (target, ctx, message, self) => {
         }
     }
 
-    if (ctx.mod && messageFinal.includes(open))
+    //When a streamer o moderator open party
+    if (!listenPuppeteer && ctx.mod && messageFinal.includes(open))
     {
         isOpen = true;
         if(sendCommand)
@@ -350,7 +389,42 @@ client.on('chat', (target, ctx, message, self) => {
         }
     }
 
-    if (ctx.mod && messageFinal.includes(close))
+    //Read bot list message
+    if(!listenPuppeteer && ctx.username == "playwithviewersbot")
+    {
+        var i = 1;
+        while(i <= teamSize * 2 + 1)
+        {
+            if(messageFinal.includes(i + ". " + usernameDisplay))
+            {
+                break;
+            }
+            i++;
+        }
+
+        if(i <= teamSize)
+        {
+            stateOfGame = 0;   
+        }
+        else if (i <= teamSize * 2)
+        {
+            stateOfGame = 1;
+            nextToPlay();
+        }
+        else
+        {
+            stateOfGame = 2;
+        }
+
+        if(stateOfGame != tempStateOfGame && stateOfGame == 0)
+        {
+            play();
+        }
+        tempStateOfGame = stateOfGame;
+    }
+
+    //When a streamer or moderator close the list
+    if (!listenPuppeteer && ctx.mod && messageFinal.includes(close))
     {
         ignoreLoop = true;
         isOpen = false;
