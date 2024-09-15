@@ -32,7 +32,7 @@ var countJoin; //Join in the queue after counting join commands from other users
 //String variables
 var language; //Language of the bot
 var username, usernameDisplay, password; //User twitch credentials
-var channel, channelArray; //Channel to send commands
+var channel; //Channel to send commands
 var command; //Command to join the queue
 var open, close; //Command to open and close the queue
 var url; //Url widget of PlayWithViewers
@@ -291,7 +291,6 @@ try {
 
     //Channel data
     channel = config.channeldata.name;
-    channelArray = [channel];
     var commandTemp = config.channeldata.command;
     var command = commandTemp.split(',').map(function(item) {
         return item.trim();
@@ -342,7 +341,7 @@ const options = {
         username: username,
         password: password
     },
-    channels: channelArray
+    channels: [channel]
 }
 
 const client = new tmi.client(options);
